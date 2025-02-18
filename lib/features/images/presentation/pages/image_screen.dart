@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:link_pic/config/routes/di/dependency_injection.dart';
@@ -92,12 +93,13 @@ class _ImageScreenState extends State<ImageScreen> {
                   ),
                 ],
               ),
+              if(kIsWeb)
               const SizedBox(height: 64),
             ],
           ),
         ),
 
-        floatingActionButton: CustomContextMenu(
+        floatingActionButton: kIsWeb ? CustomContextMenu(
           actions: [
             CustomMenuItem(
               title: 'Enter fullscreen',
@@ -123,7 +125,7 @@ class _ImageScreenState extends State<ImageScreen> {
             ),
             child: Icon(Icons.add),
           ),
-        ),
+        ) : null,
       ),
     );
   }
