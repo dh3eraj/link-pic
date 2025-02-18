@@ -1,15 +1,15 @@
 class JsInteropService {
-  /// Toggles Fullscreen
+  /// Not supported on Mobile
   Future<String> callToggleFullscreen() {
     return Future.value("Not supported on Mobile");
   }
 
-  /// Used to enter fullscreen
+  /// Not supported on Mobile
   Future<String> callEnterFullscreen() async {
     return Future.value("Not supported on Mobile");
   }
 
-  /// Used to exit fullscreen
+  /// Not supported on Mobile
   Future<String> callExitFullscreen() {
     return Future.value("Not supported on Mobile");
   }
