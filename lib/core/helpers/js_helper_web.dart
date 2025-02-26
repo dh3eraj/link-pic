@@ -1,5 +1,6 @@
 
-import '../libraries/js_interop_library.dart';
+import 'package:link_pic/core/libraries/js_interop_library.dart';
+
 ///Used to access [javascript] function
 class JsInteropService {
 
