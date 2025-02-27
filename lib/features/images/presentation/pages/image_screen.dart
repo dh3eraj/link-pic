@@ -33,100 +33,97 @@ class _ImageScreenState extends State<ImageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: false,
-      child: Scaffold(
-        backgroundColor: AppColors.bgDay,
-        appBar: AppBar(leading: Container()),
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Expanded(
-                child: AspectRatio(
-                  aspectRatio: 1,
-                  child: Container(
-                    padding: EdgeInsets.all(8),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: AppColors.modalDay,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: BlocProvider(
-                      create: (context) => sl<ImageCubit>(),
-                      child: ImageWidget(
-                        imageUrl: _imageUrl,
-                        onDoubleTap: () {
-                          _jsUtils.callToggleFullscreen();
-                        },
-                      ),
+    return Scaffold(
+      backgroundColor: AppColors.bgDay,
+      appBar: AppBar(leading: Container()),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Expanded(
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: Container(
+                  padding: EdgeInsets.all(8),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: AppColors.modalDay,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: BlocProvider(
+                    create: (context) => sl<ImageCubit>(),
+                    child: ImageWidget(
+                      imageUrl: _imageUrl,
+                      onDoubleTap: () {
+                        _jsUtils.callToggleFullscreen();
+                      },
                     ),
                   ),
                 ),
               ),
-              const SizedBox(height: 8),
-              Row(
-                children: [
-                  Expanded(
-                    child: CustomTextField(
-                      controller: _controller,
-                      hintText: 'enter image URL',
-                      onFieldSubmitted: (value) {
+            ),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                Expanded(
+                  child: CustomTextField(
+                    controller: _controller,
+                    hintText: 'enter image URL',
+                    onFieldSubmitted: (value) {
+                      setState(() {
+                        _imageUrl = _controller.text.trim();
+                      });
+                    },
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        FocusManager.instance.primaryFocus!.unfocus();
                         setState(() {
                           _imageUrl = _controller.text.trim();
                         });
                       },
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          FocusManager.instance.primaryFocus!.unfocus();
-                          setState(() {
-                            _imageUrl = _controller.text.trim();
-                          });
-                        },
-                        icon: Icon(Icons.arrow_forward),
-                      ),
-                      textInputAction: TextInputAction.done,
+                      icon: Icon(Icons.arrow_forward),
                     ),
+                    textInputAction: TextInputAction.done,
                   ),
-                ],
-              ),
-              if(kIsWeb)
-              const SizedBox(height: 64),
-            ],
-          ),
-        ),
-
-        floatingActionButton: kIsWeb ? CustomContextMenu(
-          actions: [
-            CustomMenuItem(
-              title: 'Enter fullscreen',
-              icon: Icons.fullscreen,
-              onTap: () {
-                _jsUtils.callEnterFullscreen();
-              },
+                ),
+              ],
             ),
-            CustomMenuItem(
-              title: 'Exit fullscreen',
-              icon: Icons.fullscreen_exit,
-              onTap: () {
-                _jsUtils.callExitFullscreen();
-              },
-            ),
+            if(kIsWeb)
+            const SizedBox(height: 64),
           ],
-          child: Container(
-            width: 50,
-            height: 50,
-            decoration: BoxDecoration(
-              color: AppColors.modalDay,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(Icons.add),
-          ),
-        ) : null,
+        ),
       ),
+    
+      floatingActionButton: kIsWeb ? CustomContextMenu(
+        actions: [
+          CustomMenuItem(
+            title: 'Enter fullscreen',
+            icon: Icons.fullscreen,
+            onTap: () {
+              _jsUtils.callEnterFullscreen();
+            },
+          ),
+          CustomMenuItem(
+            title: 'Exit fullscreen',
+            icon: Icons.fullscreen_exit,
+            onTap: () {
+              _jsUtils.callExitFullscreen();
+            },
+          ),
+        ],
+        child: Container(
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+            color: AppColors.modalDay,
+            shape: BoxShape.circle,
+          ),
+          child: Icon(Icons.add),
+        ),
+      ) : null,
     );
   }
 }

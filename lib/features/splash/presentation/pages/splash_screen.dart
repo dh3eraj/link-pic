@@ -43,18 +43,15 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     _size = MediaQuery.of(context).size;
-    return PopScope(
-      canPop: false,
-      child: Scaffold(
-        backgroundColor: const Color(0xFF288fee),
-        body: Center(
-          child: Lottie.asset(
-            controller: _animationController,
-            AppLotties.splash,
-            height: _size.height,
-            filterQuality: FilterQuality.high,
-            fit: BoxFit.fitHeight,
-          ),
+    return Scaffold(
+      backgroundColor: const Color(0xFF288fee),
+      body: Center(
+        child: Lottie.asset(
+          controller: _animationController,
+          AppLotties.splash,
+          height: _size.height,
+          filterQuality: FilterQuality.high,
+          fit: BoxFit.fitHeight,
         ),
       ),
     );
